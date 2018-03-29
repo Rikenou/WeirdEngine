@@ -97,7 +97,7 @@ void WEIRD::System::render(Scene* currentScene)
 			
 			SDL_Surface* optimizedSurface = NULL;
 
-			SDL_Surface* image;
+			SDL_Surface* image = NULL;
 			
 			image = currentScene->sceneObjects[i]->getImage();
 
@@ -122,6 +122,8 @@ void WEIRD::System::render(Scene* currentScene)
 
 			else
 				printf("There is no image");
+
+			SDL_FreeSurface(optimizedSurface);
 
 		}
 
