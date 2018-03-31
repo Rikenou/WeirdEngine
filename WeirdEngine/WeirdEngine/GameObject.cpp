@@ -362,5 +362,5 @@ void GameObject::updateSprite(float deltaTime)
 	}
 
 	timer += deltaTime;
-	std::cout << deltaTime << std::endl;
+
 }
