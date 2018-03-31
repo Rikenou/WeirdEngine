@@ -24,14 +24,14 @@ bool WEIRD::Manager::init()
 
 }
 
-void WEIRD::Manager::update()
+void WEIRD::Manager::update(float deltaTime)
 {
 
-	systemmanager.update();
+	systemmanager.update(deltaTime);
 
 	SystemType type;
 	type.Type = "Input";
-	scenemanager.update(systemmanager.getSystem(type)->inputs);
+	scenemanager.update(systemmanager.getSystem(type)->inputs, deltaTime);
 
 }
 

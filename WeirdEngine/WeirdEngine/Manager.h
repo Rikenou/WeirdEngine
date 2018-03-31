@@ -12,7 +12,7 @@ namespace WEIRD {
 		~Manager();
 
 		bool init();
-		void update();
+		void update(float deltaTime);
 		const void render();
 		bool shutdown();
 

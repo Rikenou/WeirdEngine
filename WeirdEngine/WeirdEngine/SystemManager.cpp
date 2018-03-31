@@ -43,11 +43,11 @@ bool WEIRD::SystemManager::init()
 
 }
 
-void WEIRD::SystemManager::update()
+void WEIRD::SystemManager::update(float deltaTime)
 {
 
 	for (size_t i = 0; i < systems.size(); i++)
-		systems[i].update();
+		systems[i].update(deltaTime);
 
 }
 

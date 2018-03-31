@@ -32,6 +32,11 @@ namespace WEIRD {
 		bool S;
 		bool D;
 
+		Uint64 timeNow;
+		Uint64 timePrev;
+
+		float deltaTime;
+
 	};
 
 }

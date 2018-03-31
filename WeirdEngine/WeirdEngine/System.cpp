@@ -22,6 +22,7 @@ System::System(SystemType newType)
 
 System::~System()
 {
+
 }
 
 bool WEIRD::System::init()
@@ -29,7 +30,7 @@ bool WEIRD::System::init()
 
 	if (Type.Type == "Window") {
 
-		window = SDL_CreateWindow("Weird Engine 0.01 Not even Pre-Alpha...",
+		window = SDL_CreateWindow("Weird Engine 0.1 alpha",
 			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 			1280, 720, SDL_WINDOW_SHOWN);
 
@@ -37,26 +38,17 @@ bool WEIRD::System::init()
 			fprintf(stderr, "Window could not be created: %s\n", SDL_GetError());
 			return 1;
 		}
-
-		screenSurface = SDL_GetWindowSurface(window);
-
-		if (!screenSurface) {
-			fprintf(stderr, "Screen surface could not be created: %s\n", SDL_GetError());
-			SDL_Quit();
-			return 1;
-		}
-
-		int imgFlags = IMG_INIT_PNG;
+		
+		int imgFlags = IMG_INIT_JPG | IMG_INIT_PNG;
 		if (!(IMG_Init(imgFlags) & imgFlags))
 		{
 			printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 			return 1;
 		}
-		else
-		{
-			//Get window surface
-			screenSurface = SDL_GetWindowSurface(window);
-		}
+
+
+		screenRender = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+		SDL_SetRenderDrawColor(screenRender, 255, 255, 255, 255);
 
 	}
 
@@ -68,18 +60,15 @@ bool WEIRD::System::init()
 	return true;
 }
 
-void WEIRD::System::update()
+void WEIRD::System::update(float deltaTime)
 {
 
-	if (Type.Type == "Window") {
-
-	}
-
-	else if (Type.Type == "Input") {
+	if (Type.Type == "Input") {
 
 		events();
 
 	}
+
 }
 
 void WEIRD::System::render(Scene* currentScene)
@@ -87,51 +76,16 @@ void WEIRD::System::render(Scene* currentScene)
 
 	if (Type.Type == "Window") {
 
-		SDL_Surface* bg = SDL_CreateRGBSurface(0, 1280, 720, 32, 0, 0, 0, 0);
-
-		SDL_FillRect(bg, NULL, SDL_MapRGB(bg->format, 255, 255, 255));
-
-		SDL_BlitSurface(bg, NULL, screenSurface, NULL);
-
-		for (size_t i = 0; i < currentScene->sceneObjects.size(); i++) {
-			
-			SDL_Surface* optimizedSurface = NULL;
-
-			SDL_Surface* image = NULL;
-			
-			image = currentScene->sceneObjects[i]->getImage();
-
-			if (image != NULL)
-			{
-				//Convert surface to screen format
-				optimizedSurface = SDL_ConvertSurface(image, screenSurface->format, NULL);
-				if (optimizedSurface == NULL)
-				{
-					printf("Unable to optimize image");
-				}
-
-				SDL_Rect position;
-				position.x = currentScene->sceneObjects[i]->getPos().x;
-				position.y = currentScene->sceneObjects[i]->getPos().y;
-				position.w = image->w;
-				position.h = image->h;
-
-				SDL_BlitSurface(optimizedSurface, NULL, screenSurface, &position);
-
-			}
-
-			else
-				printf("There is no image");
-
-			SDL_FreeSurface(optimizedSurface);
-
+		if (screenRender == NULL) {
+			printf("Could not create Render");
+			return;
 		}
 
-		SDL_FreeSurface(bg);
+		SDL_RenderClear(screenRender);
+		currentScene->render(screenRender);
+		SDL_RenderPresent(screenRender);
 
 	}
-
-	SDL_UpdateWindowSurface(window);
 
 }
 

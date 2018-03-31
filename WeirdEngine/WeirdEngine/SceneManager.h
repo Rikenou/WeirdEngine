@@ -10,7 +10,7 @@ public:
 	~SceneManager();
 
 	bool init();
-	void update(input inputs);
+	void update(input inputs, float deltaTime);
 	const void render();
 	bool shutdown();
 

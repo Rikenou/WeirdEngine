@@ -5,8 +5,14 @@
 Scene::Scene()
 {
 
-	objects.push_back(GameObject("IMG/FaceBMP.png", 0, 0));
-	
+	objects.push_back(GameObject("IMG/Face", "FaceBMP", "png", 0, 0));
+
+	objects.push_back(GameObject("IMG/transTest", "transTest", "png", 250, 0));
+	objects.at(1).setScale(0.5, 0.5);
+
+	objects.push_back(GameObject("IMG/animTest", "jpg", 850, 0, 18, 1.5, true));
+	objects.at(2).setScale(0.5, 0.5);
+
 }
 
 
@@ -17,23 +23,37 @@ Scene::~Scene()
 bool Scene::init()
 {
 
-	for (size_t i = 0; i < objects.size(); i++)
-		sceneObjects.push_back(&objects[i]);
-
 	return false;
 }
 
-void Scene::update(input inputs)
+void Scene::update(input inputs, float deltaTime)
 {
 
-	if (inputs.w || inputs.a || inputs.s || inputs.d)
-		objects[0].update(inputs);
+	if (objects.size() > 0) {
+
+		if (inputs.w || inputs.a || inputs.s || inputs.d)
+			objects[0].update(inputs, deltaTime);
+
+		if (objects.size() > 1) {
+
+			for (size_t i = 1; i < objects.size(); i++)
+				objects[i].update(deltaTime);
+
+		}
+
+	}
 
 }
 
-const void Scene::render()
+const void Scene::render(SDL_Renderer* screenRender)
 {
-	return void();
+
+	for (size_t i = 0; i < objects.size(); i++) {
+
+		objects[i].render(screenRender);
+
+	}
+
 }
 
 bool Scene::shutdown()

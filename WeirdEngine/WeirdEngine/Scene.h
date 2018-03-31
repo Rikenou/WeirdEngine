@@ -10,11 +10,9 @@ public:
 	~Scene();
 
 	virtual bool init();
-	virtual void update(input inputs);
-	virtual const void render();
+	virtual void update(input inputs, float deltaTime);
+	virtual const void render(SDL_Renderer*);
 	virtual bool shutdown();
-
-	std::vector<GameObject*>sceneObjects;
 
 protected:
 

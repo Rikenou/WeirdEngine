@@ -15,7 +15,7 @@ namespace WEIRD {
 		System* getSystem(SystemType);
 
 		bool init();
-		void update();
+		void update(float deltaTime);
 		const void render(Scene* currentScene);
 		bool shutdown();
 

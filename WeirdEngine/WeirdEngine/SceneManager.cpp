@@ -24,11 +24,11 @@ bool SceneManager::init()
 	return false;
 }
 
-void SceneManager::update(input inputs)
+void SceneManager::update(input inputs, float deltaTime)
 {
-	//std::cout << inputs.w << std::endl;
+
 	if(currentScene != nullptr)
-		currentScene->update(inputs);
+		currentScene->update(inputs, deltaTime);
 
 }
 

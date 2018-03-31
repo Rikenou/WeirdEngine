@@ -14,7 +14,7 @@ namespace WEIRD {
 		~System();
 
 		bool init();
-		void update();
+		void update(float deltaTime);
 		void render(Scene* currentScene);
 		bool shutdown();
 
@@ -30,8 +30,8 @@ namespace WEIRD {
 
 		void events();
 
-		SDL_Window* window = NULL;
-		SDL_Surface* screenSurface = NULL; 
+		SDL_Window* window = NULL; 
+		SDL_Renderer* screenRender = NULL;
 
 	};
 
