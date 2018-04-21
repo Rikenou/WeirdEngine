@@ -10,8 +10,8 @@ Scene::Scene()
 	objects.push_back(GameObject("IMG/transTest", "transTest", "png", 250, 0));
 	objects.at(1).setScale(0.5, 0.5);
 
-	objects.push_back(GameObject("IMG/animTest", "jpg", 850, 0, 18, 1.5, true));
-	objects.at(2).setScale(0.5, 0.5);
+	objects.push_back(GameObject("IMG/animTest", "png", 850, 0, 16, 1.5, true));
+	objects.at(2).setScale(0.2, 0.2);
 
 }
 
